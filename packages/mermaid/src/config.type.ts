@@ -200,6 +200,7 @@ export interface MermaidConfig {
   packet?: PacketDiagramConfig;
   block?: BlockDiagramConfig;
   radar?: RadarDiagramConfig;
+  tubemap?: TubemapDiagramConfig;
   dompurifyConfig?: DOMPurifyConfiguration;
   wrap?: boolean;
   fontSize?: number;
@@ -1586,6 +1587,38 @@ export interface RadarDiagramConfig extends BaseDiagramConfig {
    * The tension factor for the Catmull-Rom spline conversion to cubic Bézier curves.
    */
   curveTension?: number;
+}
+/**
+ * The object containing configurations specific for tube map diagrams.
+ *
+ * This interface was referenced by `MermaidConfig`'s JSON-Schema
+ * via the `definition` "TubemapDiagramConfig".
+ */
+export interface TubemapDiagramConfig extends BaseDiagramConfig {
+  /**
+   * The overall width of the tubemap diagram.
+   */
+  width?: number;
+  /**
+   * The overall height of the tubemap diagram.
+   */
+  height?: number;
+  /**
+   * The margin from the top of the tubemap diagram.
+   */
+  marginTop?: number;
+  /**
+   * The margin from the right of the tubemap diagram.
+   */
+  marginRight?: number;
+  /**
+   * The margin from the bottom of the tubemap diagram.
+   */
+  marginBottom?: number;
+  /**
+   * The margin from the left of the tubemap diagram.
+   */
+  marginLeft?: number;
 }
 /**
  * This interface was referenced by `MermaidConfig`'s JSON-Schema

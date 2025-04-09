@@ -258,6 +258,9 @@ const config: RequiredDeep<MermaidConfig> = {
   radar: {
     ...defaultConfigJson.radar,
   },
+  tubemap: {
+    ...defaultConfigJson.tubemap,
+  },
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

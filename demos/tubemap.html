@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mermaid Quick Test Page</title>
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=" />
+    <style>
+      div.mermaid {
+        font-family: 'Courier New', Courier, monospace !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Tube Map diagram demo</h1>
+
+    <div class="diagrams">
+      <pre class="mermaid">
+      tubemap-beta
+      title TODO
+    </pre
+      >
+
+      <pre class="mermaid">
+      ---
+      config:
+        packet:
+          showBits: false
+      ---
+      tubemap-beta
+      title TODO
+    </pre
+      >
+
+      <pre class="mermaid">
+      ---
+      config:
+        theme: forest
+      ---
+      tubemap-beta
+        title Forest theme
+        
+    </pre
+      >
+
+      <pre class="mermaid" style="background-color: black">
+      ---
+      config:
+        theme: dark
+      ---
+      packet-beta
+        title Dark theme
+        
+    </pre
+      >
+    </div>
+    <script type="module">
+      import mermaid from '/mermaid.esm.mjs';
+      mermaid.initialize({
+        logLevel: 3,
+        securityLevel: 'loose',
+      });
+    </script>
+
+    <style>
+      .diagrams {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      pre {
+        width: 45vw;
+        padding: 2em;
+      }
+    </style>
+  </body>
+</html>

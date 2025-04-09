@@ -25,6 +25,7 @@ import { packet } from '../diagrams/packet/detector.js';
 import { radar } from '../diagrams/radar/detector.js';
 import block from '../diagrams/block/blockDetector.js';
 import architecture from '../diagrams/architecture/architectureDetector.js';
+import { tubemap } from '../diagrams/tubemap/detector.js';
 import { registerLazyLoadedDiagrams } from './detectType.js';
 import { registerDiagram } from './diagramAPI.js';
 
@@ -96,6 +97,7 @@ export const addDiagrams = () => {
     xychart,
     block,
     architecture,
-    radar
+    radar,
+    tubemap
   );
 };
