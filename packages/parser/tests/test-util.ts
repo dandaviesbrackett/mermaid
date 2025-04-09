@@ -13,6 +13,7 @@ import type {
   PacketServices,
   GitGraph,
   GitGraphServices,
+  Tubemap,
   TubemapServices,
 } from '../src/language/index.js';
 import {
@@ -110,7 +111,7 @@ export const gitGraphParse = createGitGraphTestServices().parse;
 const tubeMapServices: TubemapServices = createTubemapServices().Tubemap;
 export function createTubemapTestServices() {
   const parse = async (input: string) => {
-    return tubeMapServices.wrangler.DocumentWrangler.parse(input);
+    return tubeMapServices.wrangler.DocumentWrangler.parse<Tubemap>(input, tubeMapServices);
   };
 
   return { services: tubeMapServices, parse };

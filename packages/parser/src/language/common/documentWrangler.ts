@@ -1,21 +1,21 @@
-import type { ParseResult } from 'langium';
+import type { LangiumCoreServices, ParseResult } from 'langium';
 import { DocumentState, URI } from 'langium';
-import type { Tubemap } from '../generated/ast.js';
-import type { TubemapServices } from './module.js';
-import { createTubemapServices } from './module.js';
+import type { DiagramAST } from '../../parse.js';
 
-export class TubemapDocumentWrangler {
-  private tubeMapServices: TubemapServices = createTubemapServices().Tubemap;
+export class CommonDocumentWrangler {
   private fakedURI: URI = URI.from({ scheme: 'mermaid', fragment: '#' });
-  public async parse(input: string): Promise<ParseResult<Tubemap>> {
+  public async parse<T extends DiagramAST>(
+    input: string,
+    services: LangiumCoreServices
+  ): Promise<ParseResult<T>> {
     //create a document from the input string. document begins in the Parsed state.
-    const doc = this.tubeMapServices.shared.workspace.LangiumDocumentFactory.fromString<Tubemap>(
+    const doc = services.shared.workspace.LangiumDocumentFactory.fromString<T>(
       input,
       this.fakedURI
     );
     //push the document through the LangiumDocument state cycle
-    const references = this.tubeMapServices.references;
-    const indexManager = this.tubeMapServices.shared.workspace.IndexManager;
+    const references = services.references;
+    const indexManager = services.shared.workspace.IndexManager;
 
     await indexManager.updateContent(doc);
     doc.state = DocumentState.IndexedContent;

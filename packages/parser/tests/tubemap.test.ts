@@ -70,7 +70,7 @@ describe('tubemap', () => {
       { line: `line one as "line one" [stop l1s1]`, len: 1 },
       { line: `line one [stop l1s1], [stop l1s2]`, len: 2 },
       { line: `line one [stop l1s1], [stop l1s2 as "line one stop two"]`, len: 2 },
-      /*{ TODO uncomment when the grammar supports newlines in line stop-lists
+      /*{ //TODO uncomment when the grammar handles stop lists with newlines
         line: `line one
         [stop l1s1],
         [stop l1s2 as "line one stop two"]`,

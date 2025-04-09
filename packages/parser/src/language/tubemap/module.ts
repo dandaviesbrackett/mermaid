@@ -12,9 +12,9 @@ import {
   inject,
 } from 'langium';
 import { CommonValueConverter } from '../common/valueConverter.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 import { MermaidGeneratedSharedModule, TubemapGeneratedModule } from '../generated/module.js';
 import { TubemapTokenBuilder } from './tokenBuilder.js';
-import { TubemapDocumentWrangler } from './documentWrangler.js';
 
 /**
  * Declaration of `Tubemap` services.
@@ -25,7 +25,7 @@ interface TubemapAddedServices {
     ValueConverter: CommonValueConverter;
   };
   wrangler: {
-    DocumentWrangler: TubemapDocumentWrangler;
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -46,7 +46,7 @@ export const TubemapModule: Module<
     ValueConverter: () => new CommonValueConverter(),
   },
   wrangler: {
-    DocumentWrangler: () => new TubemapDocumentWrangler(),
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

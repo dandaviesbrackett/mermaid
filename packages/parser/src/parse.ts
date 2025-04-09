@@ -1,45 +1,50 @@
-import type { LangiumParser, ParseResult } from 'langium';
+import type { ParseResult } from 'langium';
 
 import type { Info, Packet, Pie, Architecture, GitGraph, Radar, Tubemap } from './index.js';
 
 export type DiagramAST = Info | Packet | Pie | Architecture | GitGraph | Radar | Tubemap;
 
-const parsers: Record<string, LangiumParser> = {};
+interface DoesAsyncParsing {
+  parse<T extends DiagramAST>(input: string): Promise<ParseResult<T>>;
+}
+
+const parsers: Record<string, DoesAsyncParsing> = {};
 const initializers = {
   info: async () => {
     const { createInfoServices } = await import('./language/info/index.js');
     const parser = createInfoServices().Info.parser.LangiumParser;
-    parsers.info = parser;
+    parsers.info = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   packet: async () => {
     const { createPacketServices } = await import('./language/packet/index.js');
     const parser = createPacketServices().Packet.parser.LangiumParser;
-    parsers.packet = parser;
+    parsers.packet = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   pie: async () => {
     const { createPieServices } = await import('./language/pie/index.js');
     const parser = createPieServices().Pie.parser.LangiumParser;
-    parsers.pie = parser;
+    parsers.pie = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   architecture: async () => {
     const { createArchitectureServices } = await import('./language/architecture/index.js');
     const parser = createArchitectureServices().Architecture.parser.LangiumParser;
-    parsers.architecture = parser;
+    parsers.architecture = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   gitGraph: async () => {
     const { createGitGraphServices } = await import('./language/gitGraph/index.js');
     const parser = createGitGraphServices().GitGraph.parser.LangiumParser;
-    parsers.gitGraph = parser;
+    parsers.gitGraph = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   radar: async () => {
     const { createRadarServices } = await import('./language/radar/index.js');
     const parser = createRadarServices().Radar.parser.LangiumParser;
-    parsers.radar = parser;
+    parsers.radar = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
   },
   tubemap: async () => {
     const { createTubemapServices } = await import('./language/tubemap/index.js');
-    const parser = createTubemapServices().Tubemap.parser.LangiumParser;
-    parsers.tubemap = parser;
+    const services = createTubemapServices().Tubemap;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.tubemap = { parse: (input: string) => parser.parse(input, services) };
   },
 } as const;
 
@@ -62,8 +67,9 @@ export async function parse<T extends DiagramAST>(
   if (!parsers[diagramType]) {
     await initializer();
   }
-  const parser: LangiumParser = parsers[diagramType];
-  const result: ParseResult<T> = parser.parse<T>(text);
+  const asyncParser: DoesAsyncParsing = parsers[diagramType];
+
+  const result: ParseResult<T> = await asyncParser.parse(text);
   if (result.lexerErrors.length > 0 || result.parserErrors.length > 0) {
     throw new MermaidParseError(result);
   }
