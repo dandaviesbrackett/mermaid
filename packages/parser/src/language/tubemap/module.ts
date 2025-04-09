@@ -14,6 +14,7 @@ import {
 import { CommonValueConverter } from '../common/valueConverter.js';
 import { MermaidGeneratedSharedModule, TubemapGeneratedModule } from '../generated/module.js';
 import { TubemapTokenBuilder } from './tokenBuilder.js';
+import { TubemapScopeProvider } from './scopeProvider.js';
 
 /**
  * Declaration of `Tubemap` services.
@@ -29,7 +30,6 @@ interface TubemapAddedServices {
  * Union of Langium default services and `Tubemap` services.
  */
 export type TubemapServices = LangiumCoreServices & TubemapAddedServices;
-
 /**
  * Dependency injection module that overrides Langium default services and
  * contributes the declared `Tubemap` services.
@@ -41,6 +41,9 @@ export const TubemapModule: Module<
   parser: {
     TokenBuilder: () => new TubemapTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
+  },
+  references: {
+    ScopeProvider: (services) => new TubemapScopeProvider(services),
   },
 };
 

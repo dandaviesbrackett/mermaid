@@ -13,6 +13,8 @@ import type {
   PacketServices,
   GitGraph,
   GitGraphServices,
+  Tubemap,
+  TubemapServices,
 } from '../src/language/index.js';
 import {
   createArchitectureServices,
@@ -21,6 +23,7 @@ import {
   createRadarServices,
   createPacketServices,
   createGitGraphServices,
+  createTubemapServices,
 } from '../src/language/index.js';
 
 const consoleMock = vi.spyOn(console, 'log').mockImplementation(() => undefined);
@@ -104,3 +107,14 @@ export function createGitGraphTestServices() {
   return { services: gitGraphServices, parse };
 }
 export const gitGraphParse = createGitGraphTestServices().parse;
+
+const tubeMapServices: TubemapServices = createTubemapServices().Tubemap;
+const tubeMapParser: LangiumParser = tubeMapServices.parser.LangiumParser;
+export function createTubemapTestServices() {
+  const parse = (input: string) => {
+    return tubeMapParser.parse<Tubemap>(input);
+  };
+
+  return { services: tubeMapServices, parse };
+}
+export const tubeMapParse = createTubemapTestServices().parse;

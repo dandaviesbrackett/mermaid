@@ -1,5 +1,5 @@
 grammar Tubemap
-//horrible inline import of common as per radar
+//inline import of common as per radar
 //import "../common/common";
 
 interface Common {
