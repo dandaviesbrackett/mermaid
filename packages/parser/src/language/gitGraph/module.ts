@@ -12,6 +12,7 @@ import {
   EmptyFileSystem,
 } from 'langium';
 import { CommonValueConverter } from '../common/valueConverter.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 import { MermaidGeneratedSharedModule, GitGraphGeneratedModule } from '../generated/module.js';
 import { GitGraphTokenBuilder } from './tokenBuilder.js';
 
@@ -19,6 +20,9 @@ interface GitGraphAddedServices {
   parser: {
     TokenBuilder: GitGraphTokenBuilder;
     ValueConverter: CommonValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -31,6 +35,9 @@ export const GitGraphModule: Module<
   parser: {
     TokenBuilder: () => new GitGraphTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

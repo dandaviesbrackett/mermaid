@@ -14,6 +14,7 @@ import {
 import { CommonValueConverter } from '../common/valueConverter.js';
 import { MermaidGeneratedSharedModule, RadarGeneratedModule } from '../generated/module.js';
 import { RadarTokenBuilder } from './tokenBuilder.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 
 /**
  * Declaration of `Radar` services.
@@ -22,6 +23,9 @@ interface RadarAddedServices {
   parser: {
     TokenBuilder: RadarTokenBuilder;
     ValueConverter: CommonValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -38,6 +42,9 @@ export const RadarModule: Module<RadarServices, PartialLangiumCoreServices & Rad
   parser: {
     TokenBuilder: () => new RadarTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

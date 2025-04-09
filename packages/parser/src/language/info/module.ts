@@ -13,6 +13,7 @@ import {
 } from 'langium';
 
 import { CommonValueConverter } from '../common/index.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 import { InfoGeneratedModule, MermaidGeneratedSharedModule } from '../generated/module.js';
 import { InfoTokenBuilder } from './tokenBuilder.js';
 
@@ -23,6 +24,9 @@ interface InfoAddedServices {
   parser: {
     TokenBuilder: InfoTokenBuilder;
     ValueConverter: CommonValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -39,6 +43,9 @@ export const InfoModule: Module<InfoServices, PartialLangiumCoreServices & InfoA
   parser: {
     TokenBuilder: () => new InfoTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

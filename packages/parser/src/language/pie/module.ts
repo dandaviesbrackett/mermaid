@@ -15,6 +15,7 @@ import {
 import { MermaidGeneratedSharedModule, PieGeneratedModule } from '../generated/module.js';
 import { PieTokenBuilder } from './tokenBuilder.js';
 import { PieValueConverter } from './valueConverter.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 
 /**
  * Declaration of `Pie` services.
@@ -23,6 +24,9 @@ interface PieAddedServices {
   parser: {
     TokenBuilder: PieTokenBuilder;
     ValueConverter: PieValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -39,6 +43,9 @@ export const PieModule: Module<PieServices, PartialLangiumCoreServices & PieAdde
   parser: {
     TokenBuilder: () => new PieTokenBuilder(),
     ValueConverter: () => new PieValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

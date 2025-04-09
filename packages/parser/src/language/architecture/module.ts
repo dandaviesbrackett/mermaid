@@ -15,6 +15,7 @@ import {
 import { MermaidGeneratedSharedModule, ArchitectureGeneratedModule } from '../generated/module.js';
 import { ArchitectureTokenBuilder } from './tokenBuilder.js';
 import { ArchitectureValueConverter } from './valueConverter.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 
 /**
  * Declaration of `Architecture` services.
@@ -23,6 +24,9 @@ interface ArchitectureAddedServices {
   parser: {
     TokenBuilder: ArchitectureTokenBuilder;
     ValueConverter: ArchitectureValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -42,6 +46,9 @@ export const ArchitectureModule: Module<
   parser: {
     TokenBuilder: () => new ArchitectureTokenBuilder(),
     ValueConverter: () => new ArchitectureValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

@@ -13,6 +13,7 @@ import {
 } from 'langium';
 
 import { CommonValueConverter } from '../common/valueConverter.js';
+import { CommonDocumentWrangler } from '../common/documentWrangler.js';
 import { MermaidGeneratedSharedModule, PacketGeneratedModule } from '../generated/module.js';
 import { PacketTokenBuilder } from './tokenBuilder.js';
 
@@ -23,6 +24,9 @@ interface PacketAddedServices {
   parser: {
     TokenBuilder: PacketTokenBuilder;
     ValueConverter: CommonValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: CommonDocumentWrangler;
   };
 }
 
@@ -42,6 +46,9 @@ export const PacketModule: Module<
   parser: {
     TokenBuilder: () => new PacketTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
+  },
+  wrangler: {
+    DocumentWrangler: () => new CommonDocumentWrangler(),
   },
 };
 

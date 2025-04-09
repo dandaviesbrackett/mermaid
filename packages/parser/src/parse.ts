@@ -11,34 +11,36 @@ interface DoesAsyncParsing {
 const parsers: Record<string, DoesAsyncParsing> = {};
 const initializers = {
   info: async () => {
-    const { createInfoServices } = await import('./language/info/index.js');
-    const parser = createInfoServices().Info.parser.LangiumParser;
-    parsers.info = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/info/index.js')).createInfoServices().Info;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.info = { parse: (input: string) => parser.parse(input, services) };
   },
   packet: async () => {
-    const { createPacketServices } = await import('./language/packet/index.js');
-    const parser = createPacketServices().Packet.parser.LangiumParser;
-    parsers.packet = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/packet/index.js')).createPacketServices().Packet;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.packet = { parse: (input: string) => parser.parse(input, services) };
   },
   pie: async () => {
-    const { createPieServices } = await import('./language/pie/index.js');
-    const parser = createPieServices().Pie.parser.LangiumParser;
-    parsers.pie = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/pie/index.js')).createPieServices().Pie;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.pie = { parse: (input: string) => parser.parse(input, services) };
   },
   architecture: async () => {
-    const { createArchitectureServices } = await import('./language/architecture/index.js');
-    const parser = createArchitectureServices().Architecture.parser.LangiumParser;
-    parsers.architecture = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/architecture/index.js')).createArchitectureServices()
+      .Architecture;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.architecture = { parse: (input: string) => parser.parse(input, services) };
   },
   gitGraph: async () => {
-    const { createGitGraphServices } = await import('./language/gitGraph/index.js');
-    const parser = createGitGraphServices().GitGraph.parser.LangiumParser;
-    parsers.gitGraph = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/gitGraph/index.js')).createGitGraphServices()
+      .GitGraph;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.gitGraph = { parse: (input: string) => parser.parse(input, services) };
   },
   radar: async () => {
-    const { createRadarServices } = await import('./language/radar/index.js');
-    const parser = createRadarServices().Radar.parser.LangiumParser;
-    parsers.radar = { parse: (input: string) => Promise.resolve(parser.parse(input)) };
+    const services = (await import('./language/radar/index.js')).createRadarServices().Radar;
+    const parser = services.wrangler.DocumentWrangler;
+    parsers.radar = { parse: (input: string) => parser.parse(input, services) };
   },
   tubemap: async () => {
     const { createTubemapServices } = await import('./language/tubemap/index.js');
