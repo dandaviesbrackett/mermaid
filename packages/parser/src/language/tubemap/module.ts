@@ -14,7 +14,7 @@ import {
 import { CommonValueConverter } from '../common/valueConverter.js';
 import { MermaidGeneratedSharedModule, TubemapGeneratedModule } from '../generated/module.js';
 import { TubemapTokenBuilder } from './tokenBuilder.js';
-import { TubemapScopeProvider } from './scopeProvider.js';
+import { TubemapDocumentWrangler } from './documentWrangler.js';
 
 /**
  * Declaration of `Tubemap` services.
@@ -23,6 +23,9 @@ interface TubemapAddedServices {
   parser: {
     TokenBuilder: TubemapTokenBuilder;
     ValueConverter: CommonValueConverter;
+  };
+  wrangler: {
+    DocumentWrangler: TubemapDocumentWrangler;
   };
 }
 
@@ -42,8 +45,8 @@ export const TubemapModule: Module<
     TokenBuilder: () => new TubemapTokenBuilder(),
     ValueConverter: () => new CommonValueConverter(),
   },
-  references: {
-    ScopeProvider: (services) => new TubemapScopeProvider(services),
+  wrangler: {
+    DocumentWrangler: () => new TubemapDocumentWrangler(),
   },
 };
 

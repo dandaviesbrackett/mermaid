@@ -1,4 +1,4 @@
-import type { LangiumParser, ParseResult } from 'langium';
+import { type LangiumParser, type ParseResult } from 'langium';
 import { expect, vi } from 'vitest';
 import type {
   Architecture,
@@ -13,7 +13,6 @@ import type {
   PacketServices,
   GitGraph,
   GitGraphServices,
-  Tubemap,
   TubemapServices,
 } from '../src/language/index.js';
 import {
@@ -109,10 +108,9 @@ export function createGitGraphTestServices() {
 export const gitGraphParse = createGitGraphTestServices().parse;
 
 const tubeMapServices: TubemapServices = createTubemapServices().Tubemap;
-const tubeMapParser: LangiumParser = tubeMapServices.parser.LangiumParser;
 export function createTubemapTestServices() {
-  const parse = (input: string) => {
-    return tubeMapParser.parse<Tubemap>(input);
+  const parse = async (input: string) => {
+    return tubeMapServices.wrangler.DocumentWrangler.parse(input);
   };
 
   return { services: tubeMapServices, parse };
